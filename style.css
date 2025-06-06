@@ -44,6 +44,7 @@ button {
   color: #eee;
   cursor: pointer;
   transition: background 0.2s;
+  touch-action: manipulation;
 }
 button:hover {
   background: rgb(56, 56, 56);
