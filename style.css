@@ -1,72 +1,129 @@
+:root {
+  --bg-color: #121212;
+  --calc-bg: #1f1f1f;
+  --display-bg: #2a2a2a;
+  --text-color: #eee;
+
+  --btn-bg: #333;
+  --btn-hover-bg: #444;
+
+  --btn-operator-bg: #444;
+  --btn-operator-hover-bg: #666;
+
+  --btn-equals-bg: #007300;
+  --btn-equals-hover-bg: #00aa00;
+
+  --btn-delete-bg: #aa2222;
+  --btn-delete-hover-bg: #cc3333;
+}
+
+body.light-mode {
+  --bg-color: #f0f0f0;
+  --calc-bg: #ffffff;
+  --display-bg: #cccccc;
+  --text-color: #111;
+
+  --btn-bg: #e0e0e0;
+  --btn-hover-bg: #c0c0c0;
+
+  --btn-operator-bg: #999;
+  --btn-operator-hover-bg: #777;
+
+  --btn-equals-bg: #4caf50;
+  --btn-equals-hover-bg: #3e8e41;
+
+  --btn-delete-bg: #e53935;
+  --btn-delete-hover-bg: #c62828;
+}
+
 body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #000000 0%, #9e9e9e 200%);
-  color: #eee;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
 }
+
 .calculator {
-  background: rgba(20, 20, 20, 0.95);
+  background: #808080; /* Hintergrundfarbe des Taschenrechners: Grau */
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 45px blue;
-  width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-input[type="text"] {
-  width: 100%;
-  font-size: 2rem;
+
+#display {
+  background-color: #d3d3d3; /* Hintergrundfarbe des Displays: Hellgrau */
+  color: #333; /* Textfarbe des Displays */
+  font-size: 2em;
   padding: 10px;
-  margin-bottom: 15px;
+  width: 100%;
   border: none;
-  border-radius: 5px;
   text-align: right;
-  background: #fff;
-  color: #000;
+  margin-bottom: 20px;
+  border-radius: 5px;
 }
+
 .buttons {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* 4 Spalten */
   gap: 10px;
   width: 100%;
 }
+
 button {
   font-size: 1.5rem;
   padding: 15px;
   border: none;
-  border-radius: 5px;
-  background: #555;
-  color: #eee;
+  border-radius: 12px;
+  background: #b0b0b0; /* Standardfarbe der Buttons: Grau */
+  color: #333; /* Textfarbe der Buttons */
   cursor: pointer;
-  transition: background 0.2s;
-  touch-action: manipulation;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background 0.2s, transform 0.1s ease, box-shadow 0.1s ease;
 }
+
 button:hover {
-  background: rgb(56, 56, 56);
-  color: #eee;
+  background: #696969; /* Hover-Farbe der Buttons: Dunkelgrau */
 }
+
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
 button.operator {
-  background: rgb(56, 56, 56);
+  background: #444; /* Operator-Buttons: Dunkleres Grau */
+  color: #fff; /* Textfarbe der Operator-Buttons: Weiß */
 }
+
 button.operator:hover {
-  background: rgb(108, 109, 109);
+  background: #333; /* Hover-Farbe der Operator-Buttons: Noch dunkleres Grau */
 }
+
 button.equals {
-  background: rgb(0, 155, 0);
-  grid-column: span 2;
+  background: #007300; /* Farbe des "="-Buttons: Grün */
+  grid-column: span 2; /* Der "="-Button nimmt 2 Spalten ein */
 }
+
 button.equals:hover {
-  background-color: rgb(60, 140, 60);
+  background: #005a00; /* Hover-Farbe des "="-Buttons: Dunkleres Grün */
 }
+
 button.delete {
-  background-color: rgb(255, 0, 0);
-  grid-column: span 2;
+  background: #aa2222; /* Farbe des "⌫"-Buttons: Rot */
+  grid-column: span 2; /* Der "⌫"-Button nimmt 2 Spalten ein */
 }
+
 button.delete:hover {
-  background-color: rgb(218, 46, 46);
-}
+  background: #cc3333; /* Hover-Farbe des "⌫"-Buttons: Dunkleres Rot */
+}s
+
+
+
