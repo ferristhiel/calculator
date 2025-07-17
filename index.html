@@ -1,16 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Calculator</title>
   <link rel="stylesheet" href="./style.css" />
+  <style>
+    :root {
+      --bg-color: #121212;
+      --calc-bg: #1f1f1f;
+      --display-bg: #2a2a2a;
+      --text-color: #eee;
+
+      --btn-bg: #333;
+      --btn-hover-bg: #444;
+
+      --btn-operator-bg: #444;
+      --btn-operator-hover-bg: #666;
+
+      --btn-equals-bg: #007300;
+      --btn-equals-hover-bg: #00aa00;
+
+      --btn-delete-bg: #aa2222;
+      --btn-delete-hover-bg: #cc3333;
+    }
+
+    body.light-mode {
+      --bg-color: #f0f0f0;
+      --calc-bg: #ffffff;
+      --display-bg: #cccccc;
+      --text-color: #111;
+
+      --btn-bg: #e0e0e0;
+      --btn-hover-bg: #c0c0c0;
+
+      --btn-operator-bg: #999;
+      --btn-operator-hover-bg: #777;
+
+      --btn-equals-bg: #4caf50;
+      --btn-equals-hover-bg: #3e8e41;
+
+      --btn-delete-bg: #e53935;
+      --btn-delete-hover-bg: #c62828;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: #808080;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #display {
+      background-color: #d3d3d3;
+      color: #333;
+      font-size: 2em;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      text-align: right;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+
+    button {
+      font-size: 1.5rem;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #b0b0b0;
+      color: #333;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background 0.2s, transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    button:hover {
+      background: #696969;
+    }
+
+    button:active {
+      transform: scale(0.95);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    button.operator {
+      background: #444;
+      color: #fff;
+    }
+
+    button.operator:hover {
+      background: #333;
+    }
+
+    button.equals {
+      background: #007300;
+      grid-column: span 2;
+    }
+
+    button.equals:hover {
+      background: #005a00;
+    }
+
+    button.delete {
+      background: #aa2222;
+      grid-column: span 2;
+    }
+
+    button.delete:hover {
+      background: #cc3333;
+    }
+
+    #modeToggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    .more-section {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .more-btn {
+      background: #2563eb;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .more-btn:hover {
+      background: #1e40af;
+    }
+
+    .more-links {
+      display: none;
+      margin-top: 15px;
+      background: #f1f5f9;
+      padding: 15px;
+      border-radius: 12px;
+      width: 280px;
+      text-align: left;
+    }
+
+    .more-links a {
+      display: block;
+      margin-bottom: 10px;
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .more-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <button id="modeToggle" aria-label="Toggle Dark Mode" style="position: fixed; top: 15px; right: 15px; background: transparent; border: none; cursor: pointer; font-size: 24px;">
-    🌙
-  </button>    
+
+  <button id="modeToggle" aria-label="Toggle Dark Mode">🌙</button>    
+
   <div class="calculator">
     <input type="text" id="display" disabled />
     <div class="buttons">
@@ -38,6 +218,113 @@
       <button onclick="deleteLast()" class="delete">⌫</button>
     </div>
   </div>
-  <script src="./app.js"></script>
+
+  <div class="more-section">
+    <button class="more-btn" onclick="toggleMore()">More from us 🔽</button>
+    <div class="more-links" id="moreLinks">
+      <a href="https://ferristhiel.github.io/EasyConvert/" target="_blank">🧮 EasyConvert</a>
+      <a href="https://ferristhiel.github.io/Credentials-Generator/" target="_blank">🔐 Credentials Generator</a>
+    </div>
+  </div>
+
+  <script>
+    let currentInput = '';
+    let operator = null;
+    let previousInput = '';
+
+    function appendNumber(num) {
+      if (num === '.' && currentInput.includes('.')) return;
+      if (num === '0' && currentInput === '0') return;
+      if (num !== '.' && currentInput === '0') {
+        currentInput = num;
+      } else {
+        currentInput += num;
+      }
+      updateDisplay();
+    }
+
+    function setOperator(op) {
+      if (currentInput === '' && previousInput === '') return;
+      if (currentInput !== '') {
+        if (previousInput !== '') {
+          calculate();
+        } else {
+          previousInput = currentInput;
+          currentInput = '';
+        }
+      }
+      operator = op;
+      updateDisplay();
+    }
+
+    function calculate() {
+      let result;
+      const prev = parseFloat(previousInput);
+      const current = parseFloat(currentInput);
+      if (isNaN(prev) || isNaN(current)) return;
+
+      switch (operator) {
+        case '+': result = prev + current; break;
+        case '-': result = prev - current; break;
+        case '*': result = prev * current; break;
+        case '/': result = current === 0 ? 'Fehler' : prev / current; break;
+        default: return;
+      }
+
+      currentInput = result.toString();
+      operator = null;
+      previousInput = '';
+      updateDisplay();
+    }
+
+    function clearDisplay() {
+      currentInput = '';
+      previousInput = '';
+      operator = null;
+      updateDisplay();
+    }
+
+    function deleteLast() {
+      if (currentInput.length > 0) {
+        currentInput = currentInput.slice(0, -1);
+      } else if (operator !== null) {
+        operator = null;
+        if (previousInput !== '') {
+          currentInput = previousInput;
+          previousInput = '';
+        }
+      } else if (previousInput.length > 0) {
+        previousInput = previousInput.slice(0, -1);
+      }
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      let displayValue = '';
+      if (previousInput !== '' || operator !== null) {
+        displayValue = previousInput;
+        if (operator !== null) {
+          displayValue += ' ' + operator;
+        }
+        if (currentInput !== '') {
+          displayValue += ' ' + currentInput;
+        }
+      } else {
+        displayValue = currentInput;
+      }
+      document.getElementById('display').value = displayValue.trim();
+    }
+
+    const modeToggle = document.getElementById('modeToggle');
+    modeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      modeToggle.textContent = document.body.classList.contains('light-mode') ? '☀️' : '🌙';
+    });
+
+    function toggleMore() {
+      const links = document.getElementById('moreLinks');
+      links.style.display = links.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
 </body>
 </html>
